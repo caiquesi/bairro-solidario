@@ -3,37 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listagens Gerais</title>
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; color: #111; padding: 20px; }
-        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 30px; }
-        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-        th { background-color: #002244; color: white; }
-        tr:nth-child(even) { background-color: #f9f9f9; }
-        .back-link { display: inline-flex; align-items: center; min-height: 44px; color: #004488; font-weight: bold; text-decoration: none; }
-        .badge { padding: 5px 10px; font-weight: bold; border-radius: 3px; background: #ffcc00; color: #111; }
-    </style>
+    <title>Módulos de Controle - Listagens</title>
+    <!-- Vinculando o CSS Externo Separado -->
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <div class="container">
-        <a href="/" class="back-link">⬅️ Voltar ao Menu</a>
+    <div class="wrapper">
+        <a href="/" class="back-nav">⬅️ Voltar ao Dashboard</a>
         
-        <h1>Inventário de Estoque Atualizado</h1>
+        <h2>📦 Inventário de Estoque Atualizado</h2>
         <table>
             <thead>
                 <tr>
-                    <th>Item</th>
-                    <th>Qtd</th>
+                    <th>Especificação do Item</th>
+                    <th>Qtd Disponível</th>
                     <th>Categoria</th>
-                    <th>Validade</th>
+                    <th>Data Limite de Validade</th>
                 </tr>
             </thead>
             <tbody>
                 {% for item in estoque %}
                 <tr>
                     <td><strong>{{ item.nome }}</strong></td>
-                    <td>{{ item.quantidade }}</td>
+                    <td>{{ item.quantidade }} unidades</td>
                     <td>{{ item.categoria }}</td>
                     <td>{{ item.data_validade }}</td>
                 </tr>
@@ -41,23 +33,23 @@
             </tbody>
         </table>
 
-        <h1>Controle de Agendamento de Coletas (RF03)</h1>
+        <h2>🛻 Controle Logístico de Agendamento de Coletas (RF03)</h2>
         <table>
             <thead>
                 <tr>
-                    <th>Doador</th>
-                    <th>Endereço</th>
-                    <th>Item Volumoso</th>
-                    <th>Status</th>
+                    <th>Identificação do Doador</th>
+                    <th>Endereço do Recolhimento</th>
+                    <th>Descrição do Item Volumoso</th>
+                    <th>Sinalizador de Status</th>
                 </tr>
             </thead>
             <tbody>
                 {% for coleta in coletas %}
                 <tr>
-                    <td>{{ coleta.nome_doador }}<br><small>{{ coleta.telefone }}</small></td>
+                    <td><strong>{{ coleta.nome_doador }}</strong><br><small>Contato: {{ coleta.telefone }}</small></td>
                     <td>{{ coleta.endereco }}</td>
                     <td>{{ coleta.item }}</td>
-                    <td><span class="badge">{{ coleta.status }}</span></td>
+                    <td><span class="badge-status">{{ coleta.status }}</span></td>
                 </tr>
                 {% endfor %}
             </tbody>

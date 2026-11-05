@@ -1,0 +1,29 @@
+name: Continuous Integration - ADS MVP
+
+on:
+  push:
+    branches: [ "main", "revisao-codigo" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout do Código Fonte
+      uses: actions/checkout@v4
+
+    - name: Configurar Ambiente Python 3.12
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Instalar Dependências do Sistema
+      run: |
+        python -m pip install --upgrade pip
+        pip install fastapi jinja2 pytest pytest-cov httpx uvicorn python-multipart
+
+    - name: Executar Esteira de Testes Automatizados com Cobertura
+      run: |
+        python -m pytest --cov=main test_main.py --cov-report=term-missing
