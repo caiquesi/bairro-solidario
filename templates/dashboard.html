@@ -3,43 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Bairro Solidário</title>
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; color: #111; margin: 0; padding: 20px; }
-        .nav { background: #002244; padding: 15px; color: white; display: flex; justify-content: space-between; align-items: center; }
-        .nav a { color: white; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; padding: 0 15px; border: 2px solid transparent; }
-        .nav a:focus { border-color: #ffcc00; outline: none; }
-        .container { max-width: 800px; margin: 20px auto; background: white; padding: 20px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        .btn { display: inline-flex; align-items: center; justify-content: center; background: #004488; color: white; text-decoration: none; min-width: 150px; min-height: 44px; padding: 10px; font-weight: bold; border-radius: 5px; border: 2px solid transparent; }
-        .btn:focus { border-color: #ffcc00; outline: none; }
-        .alert-card { background: #cc0000; color: white; padding: 15px; margin: 15px 0; border-radius: 5px; display: flex; align-items: center; font-weight: bold; }
-        .alert-icon { font-size: 24px; margin-right: 15px; }
-    </style>
+    <title>Painel de Controle - Bairro Solidário</title>
+    <!-- Vinculando o CSS Externo Separado -->
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <div class="nav">
-        <strong>ONG Bairro Solidário</strong>
-        <span>Usuário: {{ usuario }} | <a href="#">Sair</a></span>
+    <div class="navbar">
+        <span class="navbar-brand">🛡️ ONG Bairro Solidário</span>
+        <span>Sessão: <strong>{{ usuario }}</strong> | <a href="#" class="logout-link">Sair</a></span>
     </div>
-    <div class="container">
-        <h1>Painel de Controle Principal</h1>
-        <p>Selecione uma ação operacional abaixo:</p>
-        <p>
-            <a href="/cadastro" class="btn">Cadastrar Donativo</a>
-            <a href="/listagem" class="btn">Ver Listagens / Coletas</a>
-        </p>
+    <div class="main-layout">
+        <div class="welcome-header">
+            <h1>Painel de Gerenciamento Operacional</h1>
+            <p style="color: #666; margin: 0;">Selecione um dos módulos do MVP para execução das tarefas de campo:</p>
+        </div>
+        
+        <div class="grid-actions">
+            <div class="action-card">
+                <h3>Triagem de Donativos</h3>
+                <p>Dar entrada digital de novos mantimentos e lotes com regras de validação estruturadas.</p>
+                <a href="/cadastro" class="btn-action">Iniciar Triagem</a>
+            </div>
+            <div class="action-card">
+                <h3>Inventário e Coletas</h3>
+                <p>Consultar saldos ativos do estoque de insumos e gerenciar agendamentos de itens volumosos.</p>
+                <a href="/listagem" class="btn-action">Visualizar Módulos</a>
+            </div>
+        </div>
 
-        <h2>Alertas Críticos de Validade (RF02)</h2>
-        {% if alertas %}
-            {% for item in alertas %}
-                <div class="alert-card" role="alert">
-                    <span class="alert-icon" aria-hidden="true">⚠️</span>
-                    <span>ATENÇÃO: O item "{{ item.nome }}" ({{ item.quantidade }} un) vence em {{ item.data_validade }}! Distribuição Urgente.</span>
+        <div>
+            <h2>Notificações Críticas do Sistema (RF02)</h2>
+            {% if alertas %}
+                {% for item in alertas %}
+                    <div class="alert-box" role="alert">
+                        <span class="alert-icon" aria-hidden="true">⚠️</span>
+                        <div>ALERTA DE EXPIRAÇÃO: O item "{{ item.nome }}" (Lote: {{ item.quantidade }} un) possui vencimento em {{ item.data_validade }}! Liberação prioritária para a comunidade assistida.</div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div style="background: #e6f4ea; color: #137333; padding: 15px; border-radius: 8px; font-weight: bold; display: flex; align-items: center;">
+                    <span style="font-size: 1.25rem; margin-right: 10px;">✅</span> Monitoramento estável: Nenhum insumo próximo do vencimento crítico.
                 </div>
-            {% endfor %}
-        {% else %}
-            <p style="color: green; font-weight: bold;">✅ Nenhum item próximo do vencimento.</p>
-        {% endif %}
+            {% endif %}
+        </div>
     </div>
 </body>
 </html>

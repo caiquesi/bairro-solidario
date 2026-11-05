@@ -3,51 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Donativos</title>
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; color: #111; padding: 20px; }
-        .container { max-width: 500px; margin: 0 auto; background: white; padding: 20px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; font-weight: bold; margin-bottom: 5px; }
-        input, select { width: 100%; min-height: 44px; padding: 5px; box-sizing: border-box; font-size: 16px; border: 2px solid #555; }
-        input:focus, select:focus { border-color: #ffcc00; outline: none; }
-        .btn-submit { background: #006633; color: white; border: none; font-weight: bold; width: 100%; min-height: 44px; font-size: 16px; cursor: pointer; }
-        .btn-submit:focus { border: 2px solid #ffcc00; outline: none; }
-        .error-msg { background: #ffcccc; color: #cc0000; padding: 10px; border-left: 5px solid #cc0000; margin-bottom: 15px; font-weight: bold; }
-        .back-link { display: inline-flex; align-items: center; min-height: 44px; color: #004488; font-weight: bold; text-decoration: none; }
-    </style>
+    <title>Entrada de Insumos - Triagem</title>
+    <!-- Vinculando o CSS Externo Separado -->
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <div class="container">
-        <a href="/" class="back-link">⬅️ Voltar ao Menu</a>
-        <h1>Triagem de Insumos (RF01)</h1>
+    <div class="card-form">
+        <a href="/" class="back-nav">⬅️ Painel Principal</a>
+        <h1>Módulo de Triagem (RF01)</h1>
         
         {% if erro %}
-            <div class="error-msg" role="alert">{{ erro }}</div>
+            <div class="error-container" role="alert">{{ erro }}</div>
         {% endif %}
 
         <form action="/cadastro/salvar" method="POST">
             <div class="form-group">
-                <label Brief para="nome">Nome do Insumo:</label>
-                <input type="text" id="nome" name="nome" required placeholder="Ex: Feijão Carioca">
+                <label for="nome">Nome do Insumo Arrecadado:</label>
+                <input type="text" id="nome" name="nome" required placeholder="Ex: Feijão Preto Carioca">
             </div>
             <div class="form-group">
-                <label Brief para="quantidade">Quantidade:</label>
-                <input type="number" id="quantidade" name="quantidade" required placeholder="Ex: 50">
+                <label for="quantidade">Quantidade do Lote:</label>
+                <input type="number" id="quantidade" name="quantidade" required placeholder="Ex: 120">
             </div>
             <div class="form-group">
-                <label Brief para="categoria">Categoria:</label>
+                <label for="categoria">Categoria Operacional:</label>
                 <select id="categoria" name="categoria" required>
-                    <option value="Alimentos">Alimentos</option>
-                    <option value="Higiene">Higiene</option>
-                    <option value="Vestuário">Vestuário</option>
+                    <option value="Alimentos">Alimentos Perecíveis/Cesta</option>
+                    <option value="Higiene">Higiene Pessoal</option>
+                    <option value="Vestuário">Vestuário/Agasalhos</option>
                 </select>
             </div>
             <div class="form-group">
-                <label Brief para="data_validade">Data de Validade:</label>
+                <label for="data_validade">Data de Vencimento do Lote:</label>
                 <input type="date" id="data_validade" name="data_validade" required>
             </div>
-            <button type="submit" class="btn-submit">Salvar Insumo no Estoque</button>
+            <button type="submit" class="btn-save">Confirmar e Persistir Registro</button>
         </form>
     </div>
 </body>
