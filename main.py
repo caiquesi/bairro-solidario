@@ -83,3 +83,5 @@ def read_listagem(request: Request):
         context={"estoque": estoque_db, "coletas": coletas_db}
     )
 
+
+# Revisao de codigo efetuada para homologacao do MVP da ONG
